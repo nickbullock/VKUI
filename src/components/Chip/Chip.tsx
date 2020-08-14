@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useCallback } from 'react';
+import React, { FC, ReactNode, useCallback, MouseEvent } from 'react';
 import classNames from '../../lib/classNames';
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
 import { hasReactNode, noop } from '../../lib/utils';
@@ -8,7 +8,7 @@ type ChipValue = string | number;
 export interface ChipProps {
   value: ChipValue;
   label: string;
-  onRemove?: (value?: ChipValue) => void;
+  onRemove?: (event?: MouseEvent, value?: ChipValue) => void;
   removable?: boolean;
   className?: string;
   before?: ReactNode;
@@ -17,8 +17,8 @@ export interface ChipProps {
 
 const Chip: FC<ChipProps> = (props: ChipProps) => {
   const { value, label, onRemove, removable, className, before, after } = props;
-  const onRemoveWrapper = useCallback(() => {
-    onRemove(value);
+  const onRemoveWrapper = useCallback((event: MouseEvent) => {
+    onRemove(event, value);
   }, [onRemove, value]);
 
   return (
